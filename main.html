@@ -1,0 +1,168 @@
+<!doctype html> 
+<html>
+  <meta charset='utf-8'>
+  <head>
+    <title>Флирохин</title>
+  </head>
+  <body>
+    
+    <div style="display: flex;">
+        <canvas id='example'>Обновите браузер, здесь должна быть карта</canvas>
+          <div style="position: fixed; top: 10px; left: 10px; right: 0;">
+
+            <div>
+              <input type="checkbox" name="polit" id="polit" title="">
+              <label for="polit">Политическая карта</label>
+              <input type="checkbox", id="Flex" ,name="Flex">
+              <label for="Flex">Ломаная</label>
+            </div>
+            <div id = "results"></div>
+            <div id = "city"></div>
+          </div>
+    </div>
+
+
+    <script>
+
+      document.oncontextmenu = function (){return false};
+
+      let cities = 
+        [
+          {
+            x: 248,
+            y: 844,
+            name: "Лейтон",
+            country: "Аэтерна"
+          },
+          {
+            x: 320,
+            y: 810,
+            name: "Бриндоль",
+            country: "Агракс"
+          },
+          {
+            x: 350,
+            y: 800,
+            name: "Глохам",
+            country: "Агракс"
+          }     
+        ];
+      var example = document.getElementById("example"),
+      ctx       = example.getContext('2d'), // Контекст
+      pic       = new Image();              // "Создаём" изображение
+      pic.src    = 'Flirohin.png'; 
+      pic.onload = function() {    // Событие onLoad, ждём момента пока загрузится изображение
+        ctx.canvas.width  = 977;
+        ctx.canvas.height = 1278;
+        ctx.drawImage(pic, 0, 0);  // Рисуем изображение от точки с координатами 0, 0
+        ctx.strokeStyle = "red"; //цвет линии
+        drawCities();
+      }
+      function drawCities(){
+          for(let city of cities){
+            ctx.fillStyle = "red";
+            ctx.fillRect(city.x,city.y,10,10);
+          }
+      }
+
+      function infoCities(x,y){
+        for(let city of cities){
+            if(Math.abs(city.x - x) <= 10 && Math.abs(city.y - y) <= 10){
+              document.getElementById('city').innerHTML ="<h1>" + city.name + "<br>" + city.country + "</h1>";
+              return;
+            } else {
+              document.getElementById('city').innerHTML ="<h1></h1>";
+            }
+        }
+      }
+      
+
+      var count = 0;
+      var x1, y1;
+      var x2, y2;
+      var totalDistance = 0;
+
+      function getMousePosition(canvas, event) {
+        if(event.which == 3){
+          clean();
+          return;
+        }
+          if(count >= 2 && !curve.checked){
+              ctx.drawImage(pic, 0, 0);
+              drawCities();
+              count = 0;
+              totalDistance = 0;
+              ctx.beginPath();
+            }
+            let rect = canvas.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            infoCities(x,y);
+            if(count%2 == 0){
+                x1 = x;
+                y1 = y;
+                
+                if(curve.checked && count != 0){
+                  draw();
+                }
+            }
+            if(count%2 == 1){
+                x2 = x;
+                y2 = y;
+                draw();
+              }
+              ctx.fillStyle = "green";
+              ctx.fillRect(x-2,y-2,5,5);
+            console.log("X " + x + " Y " + y);
+            count++;
+          }
+
+      function draw(){
+        ctx.moveTo(x1,y1);
+        ctx.lineTo(x2,y2);
+        ctx.lineWidth = "2"; //толщина линии
+        ctx.lineCap = "round";
+        ctx.stroke(); // обводка линии   
+        totalDistance += Math.round(Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))*11); 
+        var Speed = 65;
+        var Time = Math.round(totalDistance / Speed);
+        document.getElementById('results').innerHTML ="<h1>Дистанция " + totalDistance + "км <br>Часов " + Time*24 + "<br>Дней " + (Time) + "</h1>";
+      }
+
+        let canvasElem = document.querySelector("canvas");
+        
+        canvasElem.addEventListener("mousedown", function(e)
+        {
+            getMousePosition(canvasElem, e);
+        });
+
+        const curve = document.querySelector('#Flex');
+        curve.addEventListener('click', check);
+        const pol = document.querySelector('#polit');
+        pol.addEventListener('click', change);
+        function change(){
+          console.log(pol.checked)
+          if(pol.checked){
+            pic.src = "FlirohinPol.png";
+            ctx.drawImage(pic, 0, 0);
+          } else {
+            pic.src = "Flirohin.png";
+            ctx.drawImage(pic, 0, 0);
+          }
+        }
+        function check(){
+          console.log(curve.checked);
+        }
+
+        function clean(){
+          ctx.drawImage(pic, 0, 0);
+          drawCities();
+          count = 0;
+          totalDistance = 0;
+          ctx.beginPath();
+        }
+
+
+    </script>
+  </body>
+</html>
