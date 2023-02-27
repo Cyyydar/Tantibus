@@ -8,8 +8,7 @@
     
     <div style="display: flex;">
         <canvas id='example'>Обновите браузер, здесь должна быть карта</canvas>
-          <div style="position: fixed; top: 10px; left: 10px; right: 0;">
-
+          <div style="position: fixed; top: 10px; right: 0;">
             <div>
               <input type="checkbox" name="polit" id="polit" title="">
               <label for="polit">Политическая карта</label>
@@ -32,20 +31,44 @@
             x: 248,
             y: 844,
             name: "Лейтон",
-            country: "Аэтерна"
+            country: "Аэтерна",
+            color: "red"
           },
           {
             x: 320,
             y: 810,
             name: "Бриндоль",
-            country: "Агракс"
+            country: "Агракс",
+            color: "red"
           },
           {
             x: 350,
             y: 800,
             name: "Глохам",
-            country: "Агракс"
-          }     
+            country: "Агракс",
+            color: "red"
+          },   
+          {
+            x: 362,
+            y: 793,
+            name: "Место захоронения Донки",
+            country: "Агракс",
+            color: "#2a8d9c"
+          },   
+          {
+            x: 367,
+            y: 819,
+            name: "Ферма камней",
+            country: "",
+            color: "#2a8d9c"
+          },   
+          {
+            x: 294,
+            y: 846,
+            name: "Деревня Вацлава",
+            country: "Аэтерна",
+            color: "#2a8d9c"
+          }        
         ];
       var example = document.getElementById("example"),
       ctx       = example.getContext('2d'), // Контекст
@@ -60,7 +83,7 @@
       }
       function drawCities(){
           for(let city of cities){
-            ctx.fillStyle = "red";
+            ctx.fillStyle = city.color;
             ctx.fillRect(city.x,city.y,10,10);
           }
       }
