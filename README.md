@@ -5,6 +5,6 @@
 
 ---
 # Tantibus
-## Flirokhin map on the fictional planet "Tantibus"
+## Flirohin map on the fictional planet "Tantibus"
 
 Made to count the number of days spent traveling across the mainland for my D&D party
