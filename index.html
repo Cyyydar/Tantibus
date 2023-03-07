@@ -32,42 +32,56 @@
             y: 844,
             name: "Лейтон",
             country: "Аэтерна",
-            color: "red"
+            color: "red",
+            discription: "Портовый город средних размеров"
           },
           {
             x: 320,
             y: 810,
             name: "Бриндоль",
             country: "Агракс",
-            color: "red"
+            color: "red",
+            discription: "Крупный город"
           },
           {
             x: 350,
             y: 800,
             name: "Глохам",
             country: "Агракс",
-            color: "red"
+            color: "red",
+            discription: "Небольшой город"
           },   
           {
             x: 362,
             y: 793,
             name: "Место захоронения Донки",
             country: "Агракс",
-            color: "#2a8d9c"
+            color: "#2a8d9c",
+            discription: "Жил без страха и умер без страха"
           },   
           {
             x: 367,
             y: 819,
             name: "Ферма камней",
             country: "",
-            color: "#2a8d9c"
+            color: "#2a8d9c",
+            discription: "Население 1 багбир"
           },   
           {
             x: 294,
             y: 846,
-            name: "Деревня Вацлава",
+            name: "Деревня Земняки",
             country: "Аэтерна",
-            color: "#2a8d9c"
+            color: "#2a8d9c",
+            discription: "Кравославная деревня <br> где-то в глубинки материка"
+          },   
+          {
+            x: 181,
+            y: 919,
+            name: "Праестантия",
+            country: "Аэтерна",
+            color: "yellow",
+            discription: "Столица Аэтерны"
           }        
         ];
       var example = document.getElementById("example"),
@@ -91,7 +105,7 @@
       function infoCities(x,y){
         for(let city of cities){
             if(Math.abs(city.x - x) <= 10 && Math.abs(city.y - y) <= 10){
-              document.getElementById('city').innerHTML ="<h1>" + city.name + "<br>" + city.country + "</h1>";
+              document.getElementById('city').innerHTML ="<h1>" + city.name + "<br>" + city.country + "<br>" + city.discription +"</h1>";
               return;
             } else {
               document.getElementById('city').innerHTML ="<h1></h1>";
@@ -124,7 +138,7 @@
             if(count%2 == 0){
                 x1 = x;
                 y1 = y;
-                
+                document.getElementById('results').innerHTML ="<h1></h1>";
                 if(curve.checked && count != 0){
                   draw();
                 }
